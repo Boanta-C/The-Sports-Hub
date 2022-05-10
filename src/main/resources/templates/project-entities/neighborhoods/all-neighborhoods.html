@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:replace="layouts :: header"></head>
+
+<body>
+<nav th:replace="layouts :: navbar"></nav>
+
+<br>
+<br>
+
+<!------------------------------------- TABLE 1 ------------------------------------->
+<div class="container-fluid relative ">
+    <div class="row">
+        <div class="col-sm-6 absolute left-half">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                <tr>
+                    <th scope="col" sec:authorize="hasAuthority('USER') or isAnonymous()">Neighborhood</th>
+                    <th scope="col" sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR')">Neighborhood
+                        <a class="btn btn-success btn-sm py-0"
+                           th:href="@{/neighborhoods/add}">
+                            Add
+                        </a>
+                    <th scope="col">Number of Facilities</th>
+                    <th scope="col">Sports</th>
+                    <div sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR')">
+                        <th scope="col">ADMIN</th>
+
+                    </div>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="neighborhood : ${neighborhoods}">
+                    <td th:text="${neighborhood.neighborhoodName}"></td>
+                    <td th:text="${neighborhood.neighborhoodNumberOfFacilities}"></td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                       List
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <div th:each="sport : ${neighborhood.sports}">
+                                    <a th:href="@{'sports/selected/' + ${sport.sportId}}" class="dropdown-item" href="#" th:text="${sport.sportName}"></a>
+                                </div>
+                            </ul>
+                        </div>
+                    </td>
+                    <div sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR')">
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuAdmin" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuAdmin">
+                                    <li>
+                                        <a th:href="@{/neighborhoods/update(neighborhoodId=${neighborhood.neighborhoodId})}"
+                                           class="dropdown-item text-warning">
+                                            Edit
+                                        </a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Select</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+
+                                    <li><a class="dropdown-item text-danger"
+                                           th:href="@{'/neighborhoods/delete/' + ${neighborhood.neighborhoodId}}">Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </div>
+                </tr>
+                </tbody>
+<!--                <div sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR')">-->
+<!--                    <tfoot>-->
+<!--                    <th class="text-center" scope="row" colspan="4">-->
+<!--                        <a class="btn-xs btn-outline-success btn-centered"-->
+<!--                           th:href="@{/neighborhoods/add}">-->
+<!--                            Add Neighborhood-->
+<!--                        </a>-->
+<!--                    </th>-->
+<!--                    </tfoot>-->
+<!--                </div>-->
+            </table>
+            <div class="d-grid gap-2 col-3 mx-auto">
+                <a class="btn btn-primary btn-centered"
+                   th:href="@{/sportFacilities}">
+                    Sport Facilities
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!------------------------------------- TABLE 2 ------------------------------------->
+
+
+<script th:replace="layouts :: jScriptFragment"></script>
+<footer th:replace="layouts :: footer"></footer>
+</body>
+
+</html>

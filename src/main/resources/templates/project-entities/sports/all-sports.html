@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:replace="layouts :: header">
+</head>
+
+<body>
+<nav th:replace="layouts :: navbar"></nav>
+
+<br>
+<br>
+
+
+<!------------------------------------- TABLE 1 ------------------------------------->
+<div class="container-fluid relative ">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                <tr>
+                    <th class="text-center" scope="col" sec:authorize="hasAuthority('USER') or isAnonymous()">Sports
+                    </th>
+                    <th class="text-center" scope="col"
+                        sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR')">Sports
+                        <a class="btn btn-success btn-sm py-0"
+                           th:href="@{/sports/add}">
+                            Add
+                        </a>
+                    </th>
+                    <div sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR')">
+                        <th class="text-center" scope="col">ADMIN</th>
+                    </div>
+                <tr>
+                </thead>
+                <tbody>
+                <tr class="text-center" th:each="sport : ${sports}">
+                    <td><a th:text="${sport.sportName}" th:href="@{'/sports/selected/'+ ${sport.sportId}}" class="stretched-link text-decoration-none text-dark"></a></td>
+                    <div sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR')">
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuAdmin" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuAdmin">
+                                    <li>
+                                        <a th:href="@{/sports/update(sportId=${sport.sportId})}"
+                                           class="dropdown-item text-warning">
+                                            Edit
+                                        </a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Select</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+
+                                    <li><a class="dropdown-item text-danger"
+                                           th:href="@{'/sports/delete/' + ${sport.sportId}}">Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </div>
+                </tr>
+                </tbody>
+                <div sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR')">
+                    <!--                    <tfoot>-->
+                    <!--                    <th class="text-center" scope="row">-->
+                    <!--                        <a class="btn-xs btn-outline-success btn-centered"-->
+                    <!--                           th:href="@{/sports/add}">-->
+                    <!--                            Add Sport-->
+                    <!--                        </a>-->
+                    <!--                    </th>-->
+                    <!--                    </tfoot>-->
+                </div>
+            </table>
+        </div>
+
+
+        <script th:replace="layouts :: jScriptFragment"></script>
+        <footer th:replace="layouts :: footer"></footer>
+    </div>
+</div>
+</body>
+
+</html>

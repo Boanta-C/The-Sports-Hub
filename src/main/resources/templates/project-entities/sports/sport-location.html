@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layouts :: header"></head>
+
+<body>
+<nav th:replace="layouts :: navbar"></nav>
+
+<br>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2 class="text-center text-dark mt-5" th:text="${sport.sportName}"></h2>
+      <!--      <div class="text-center mb-5 text-dark">Made with bootstrap</div>-->
+      <div class="card my-5">
+
+        <form class="card-body cardbody-color p-lg-5" th:action="@{/sports/saveConnections}" th:object="${sport}"
+              th:method="POST">
+          <input type="hidden" th:field="*{sportId}"/>
+          <input type="hidden" th:field="*{sportName}"/>
+          <input type="hidden" th:field="*{priceCategory}"/>
+          <input type="hidden" th:field="*{price}"/>
+          <input type="hidden" th:field="*{locationType}"/>
+
+
+
+
+          <div class="text-center">
+            <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+                 class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+                 width="200px" alt="profile">
+          </div>
+
+          <div class="mb-3">
+            <select class="form-select form-select-sm" th:field="*{cities}"
+                    aria-label="Default select example">
+              <option th:each="city : ${allCities}"
+                      th:value="${city.cityId}"
+                      th:text="${city.cityName}"></option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <select class="form-select form-select-sm" th:field="*{neighborhoods}"
+                    aria-label="Default select example">
+
+              <option th:each="neighborhood : ${allNeighborhoods}"
+                      th:value="${neighborhood.neighborhoodId}"
+                      th:text="${neighborhood.neighborhoodName}"></option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <select class="form-select form-select-sm" th:field="*{sportFacilities}"
+                    aria-label="Default select example">
+              <option th:each="sportFacility : ${allFacilities}"
+                      th:value="${sportFacility.sportFacilityId}"
+                      th:text="${sportFacility.sportFacilityName}"></option>
+            </select>
+          </div>
+
+          <br>
+
+          <div class="text-center">
+            <button type="submit" class="btn btn-outline-success px-5 mb-5 w-100">Add</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<script th:replace="layouts :: jScriptFragment"></script>
+<footer th:replace="layouts :: footer"></footer>
+</body>
+
+</html>

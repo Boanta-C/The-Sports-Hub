@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:replace="layouts :: header"></head>
+
+<body>
+<nav th:replace="layouts :: navbar"></nav>
+
+<br>
+<br>
+
+<!------------------------------------- TABLE 1 ------------------------------------->
+<div class="container-fluid relative ">
+    <div class="row">
+        <div class="col-sm-6 absolute left-half">
+            <table class="table table-bordered table-striped" id="table">
+
+                <thead class="table-dark">
+                <tr>
+                    <div sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR')">
+                        <th scope="col">Id</th>
+                    </div>
+                    <th scope="col" sec:authorize="hasAuthority('USER') or isAnonymous()">City</th>
+                    <th scope="col" sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR')">City
+                        <a class="btn btn-success btn-sm py-0"
+                           th:href="@{/cities/add}">
+                            Add
+                        </a>
+
+                    </th>
+                    <th scope="col">Number of Facilities</th>
+                    <th scope="col">Sports</th>
+                    <div sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR')">
+                        <th scope="col">ADMIN</th>
+
+                    </div>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="city : ${cities}">
+                    <div sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR')">
+                        <td th:text="${city.cityId}"></td>
+                    </div>
+                    <td><a th:text="${city.cityName}" th:href="@{'/cities/selected/'+ ${city.cityId}}"
+                           class="stretched-link text-decoration-none text-dark"></a></td>
+                    <td th:text="${city.cityNumberOfFacilities}"></td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                    id="dropdownMenuSports" data-bs-toggle="dropdown" aria-expanded="false">
+                                List
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuSports">
+
+                                <div th:each="sport : ${city.sports}">
+                                    <a th:href="@{'sports/selected/' + ${sport.sportId}}" class="dropdown-item" href="#"
+                                       th:text="${sport.sportName}"></a>
+                                </div>
+
+                            </ul>
+                        </div>
+                    </td>
+                    <div sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR')">
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuAdmin" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuAdmin">
+                                    <li>
+                                        <a th:href="@{/cities/update(cityId=${city.cityId})}"
+                                           class="dropdown-item text-warning">
+                                            Edit
+                                        </a>
+                                    </li>
+                                    <li><a class="dropdown-item"
+                                           th:href="@{'/cities/selected/'+ ${city.cityId}}">Select</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+
+                                    <li><a class="dropdown-item text-danger"
+                                           th:href="@{'/cities/delete/' + ${city.cityId}}">Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </div>
+                </tr>
+                </tbody>
+
+
+            </table>
+            <div class="d-grid gap-2 col-3 mx-auto">
+                <a class="btn btn-primary btn-centered"
+                   th:href="@{/neighborhoods}">
+                    Neighborhoods
+                </a>
+            </div>
+        </div>
+
+
+        <!------------------------------------- TABLE 2 ------------------------------------->
+
+        <div class="col-sm-6 absolute right-half">
+            <!--            <div class="text-center">-->
+            <!--                <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"-->
+            <!--                     class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"-->
+            <!--                     width="200px" alt="profile">-->
+            <!--            </div>-->
+
+
+        </div>
+    </div>
+</div>
+
+
+<script th:replace="layouts :: jScriptFragment"></script>
+<footer th:replace="layouts :: footer"></footer>
+</body>
+
+</html>

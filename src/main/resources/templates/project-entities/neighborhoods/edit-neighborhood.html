@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layouts :: header"></head>
+
+<body>
+<nav th:replace="layouts :: navbar"></nav>
+
+<br>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+
+      <div class="card my-5 border border-4 border-white bg-secondary">
+
+
+        <form class="card-body cardbody-color p-lg-5" th:action="@{/neighborhoods/save}" th:object="${neighborhood}" method="POST">
+          <h4 class="text-center text-white mt-1">Add Neighborhood</h4>
+          <br>
+          <input type="hidden" th:field="${neighborhood.neighborhoodId}"/>
+          <input type="hidden" th:field="${neighborhood.neighborhoodNumberOfFacilities}"/>
+
+          <div class="mb-3">
+            <input type="text" class="form-control" placeholder="What is the name of the neighborhood?" required
+                   th:field="${neighborhood.neighborhoodName}">
+          </div>
+
+          <div class="mb-3">
+            <select class="form-select form-select-sm" th:field="${neighborhood.city}"
+                    aria-label="Default select example">
+              <option th:each="city : ${cities}"
+                      th:value="${city.cityId}"
+                      th:text="${city.cityName}"></option>
+            </select>
+          </div>
+
+          <div class="text-center"><button type="submit" class="btn btn-outline-light px-5 mb-5 w-100">Add</button></div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<script th:replace="layouts :: jScriptFragment"></script>
+<footer th:replace="layouts :: footer"></footer>
+</body>
+
+</html>

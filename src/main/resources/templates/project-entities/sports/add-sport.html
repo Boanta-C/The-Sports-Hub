@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layouts :: header"></head>
+
+<body>
+<nav th:replace="layouts :: navbar"></nav>
+
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <!--      <div class="text-center mb-5 text-dark">Made with bootstrap</div>-->
+            <div class="card my-3">
+
+                <form class="card-body cardbody-color p-lg-4" th:action="@{/sports/save}" th:object="${sport}"
+                      method="POST">
+
+                    <div class="text-center">
+                        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+                             class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+                             width="200px" alt="profile">
+                    </div>
+
+                    <h4 class="text-center text-dark mt-1">Add Sport</h4>
+                    <br>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Select the sport you want to add" required
+                               th:field="${sport.sportName}">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Select the the price category" required
+                               th:field="${sport.priceCategory}">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Enter Price" required
+                               th:field="${sport.price}">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Select Location Type" required
+                               th:field="${sport.locationType}">
+                    </div>
+
+                    <br>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-outline-success px-5 mb-5 w-100">Next</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script th:replace="layouts :: jScriptFragment"></script>
+<footer th:replace="layouts :: footer"></footer>
+</body>
+
+</html>

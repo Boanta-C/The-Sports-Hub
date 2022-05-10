@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layouts :: header">
+    <style>
+
+        body{
+    background:#eee;
+}
+.form-control {
+    border-radius: 0;
+    box-shadow: none;
+    border-color: #d2d6de
+}
+
+.select2-hidden-accessible {
+    border: 0 !important;
+    clip: rect(0 0 0 0) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+
+.select2-container--default .select2-selection--single,
+.select2-selection .select2-selection--single {
+    border: 1px solid #d2d6de;
+    border-radius: 0;
+    padding: 6px 12px;
+    height: 34px
+}
+
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #aaa;
+    border-radius: 4px
+}
+
+.select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 28px;
+    user-select: none;
+    -webkit-user-select: none
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-right: 10px
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 0;
+    padding-right: 0;
+    height: auto;
+    margin-top: -3px
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 28px
+}
+
+.select2-container--default .select2-selection--single,
+.select2-selection .select2-selection--single {
+    border: 1px solid #d2d6de;
+    border-radius: 0 !important;
+    padding: 6px 12px;
+    height: 40px !important
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 26px;
+    position: absolute;
+    top: 6px !important;
+    right: 1px;
+    width: 20px
+}
+
+
+    </style>
+
+</head>
+
+<body>
+<nav th:replace="layouts :: navbar"></nav>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+<script>
+    $(document).ready(function() {
+    $('.select2').select2({
+    closeOnSelect: false
+});
+});
+
+</script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <!--      <div class="text-center mb-5 text-dark">Made with bootstrap</div>-->
+            <div class="card my-5">
+
+                <form class="card-body cardbody-color p-lg-5" th:action="@{/sports/update}" th:object="${sport}"
+                      method="POST">
+                    <input type="hidden" th:field="${sport.sportId}"/>
+
+                    <div class="text-center">
+                        <!--                        <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"-->
+                        <!--                             class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"-->
+                        <!--                             width="200px" alt="profile">-->
+                    </div>
+                    <h4 class="text-center text-dark mt-5">Edit Sport</h4>
+                    <br>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Select the sport you want to add" required
+                               th:field="${sport.sportName}">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Select the the price category" required
+                               th:field="${sport.priceCategory}">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Enter Price" required
+                               th:field="${sport.price}">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Select Location Type" required
+                               th:field="${sport.locationType}">
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-group">
+                            <select
+                                    class="form-control select2 select2-hidden-accessible" multiple=""
+                                    data-placeholder="Select a State" style="width: 100%;" tabindex="-1"
+                                    aria-hidden="true" th:field="*{cities}">
+                                <option selected="selected"
+                                        th:each="city : ${cities}"
+                                        th:value="${city.cityId}"
+                                        th:text="${city.cityName}"></option>
+                            </select>
+                        </div> <!-- /.form-group -->
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-group">
+                            <select
+                                    class="form-control select2 select2-hidden-accessible" multiple=""
+                                    data-placeholder="Select a State" style="width: 100%;" tabindex="-1"
+                                    aria-hidden="true" th:field="*{neighborhoods}">
+                                <option selected="selected"
+                                        th:each="neighborhood : ${neighborhoods}"
+                                        th:value="${neighborhood.neighborhoodId}"
+                                        th:text="${neighborhood.neighborhoodName}"></option>
+                            </select>
+                        </div> <!-- /.form-group -->
+                    </div>
+
+
+                    <div class="mb-3">
+                        <div class="form-group">
+                            <select
+                                    class="form-control select2 select2-hidden-accessible" multiple=""
+                                    data-placeholder="Select a State" style="width: 100%;" tabindex="-1"
+                                    aria-hidden="true" th:field="*{sportFacilities}">
+                                <option selected="selected"
+                                        th:each="sportFacility : ${sportFacilities}"
+                                        th:value="${sportFacility.sportFacilityId}"
+                                        th:text="${sportFacility.sportFacilityName}"></option>
+                            </select>
+                        </div> <!-- /.form-group -->
+                    </div>
+
+                    <br>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-outline-success px-5 mb-5 w-100">Next</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script th:replace="layouts :: jScriptFragment"></script>
+<footer th:replace="layouts :: footer"></footer>
+</body>
+
+</html>

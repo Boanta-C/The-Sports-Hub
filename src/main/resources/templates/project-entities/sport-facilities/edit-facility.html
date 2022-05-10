@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layouts :: header"></head>
+
+<body>
+<nav th:replace="layouts :: navbar"></nav>
+
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <br>
+            <!--      <div class="text-center mb-5 text-dark">Made with bootstrap</div>-->
+            <div class="card my-2 border border-4 border-white bg-secondary">
+
+                <h4 class="text-center text-light mt-5">Edit Sport Facility</h4>
+                <form class="card-body cardbody-color p-lg-5" th:action="@{/sportFacilities/save}"
+                      th:object="${sportFacility}" method="POST">
+                    <input type="hidden" th:field="${sportFacility.sportFacilityId}"/>
+
+
+
+
+                    <div class="mb-3">
+                        <select class="form-select form-select-sm" th:field="${sportFacility.city}"
+                                aria-label="Default select example">
+                            <option th:each="city : ${cities}"
+                                    th:value="${city.cityId}"
+                                    th:text="${city.cityName}"></option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <select class="form-select form-select-sm" th:field="${sportFacility.neighborhood}"
+                                aria-label="Default select example">
+
+                            <option th:each="neighborhood : ${neighborhoods}"
+                                    th:value="${neighborhood.neighborhoodId}"
+                                    th:text="${neighborhood.neighborhoodName}"></option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="What is the new name of the facility?"
+                               required
+                               th:field="${sportFacility.sportFacilityName}">
+                    </div>
+
+                    <div class="mb-3">
+                        <textarea class="form-control" rows="2"
+                                  placeholder="Please enter the sport facility's address"
+                                  th:field="${sportFacility.address}"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+                                <div class="input-group date">
+                                    <input type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="form-control" th:field="*{openingHour}"
+                                           placeholder="Opening time">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+                                <div class="input-group date">
+                                    <input type="text" onfocus="(this.type='time')" onblur="(this.type='text')" class="form-control" th:field="*{closingHour}"
+                                           placeholder="Closing time">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                  placeholder="Please enter a short description &#10;(Facilities, Rules, Number of Spaces/Terrains etc.)"
+                                  th:field="${sportFacility.sportFacilityDescription}"></textarea>
+                    </div>
+
+                    <br>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-outline-light px-5 mb-2 w-100">Next</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script th:replace="layouts :: jScriptFragment"></script>
+<footer th:replace="layouts :: footer"></footer>
+</body>
+
+</html>

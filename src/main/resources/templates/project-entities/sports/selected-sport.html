@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:replace="layouts :: header">
+</head>
+
+<body>
+<nav th:replace="layouts :: navbar"></nav>
+
+<br>
+<br>
+
+
+<!------------------------------------- TABLE 1 ------------------------------------->
+<div class="container-fluid relative ">
+    <div class="row justify-content-left">
+        <div class="col-6">
+
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                <tr>
+                    <th class="text-center" scope="col" th:text="${sport.sportName}+ ' Cities'"></th>
+                <tr>
+                </thead>
+                <tbody>
+                <tr class="text-center" th:each="city : ${sport.cities}">
+                    <td><a th:text="${city.cityName}" th:href="@{'/cities/selected/'+ ${city.cityId}}" class="stretched-link text-decoration-none text-dark"></a></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                <tr>
+                    <th class="text-center" scope="col" th:text="${sport.sportName}+ ' Neighborhoods'"></th>
+                <tr>
+                </thead>
+                <tbody>
+                <tr class="text-center" th:each="neighborhood : ${sport.neighborhoods}">
+                    <td><a th:text="${neighborhood.neighborhoodName}" th:href="@{'/neighborhoods/selected/'+ ${neighborhood.neighborhoodId}}" class="stretched-link text-decoration-none text-dark"></a></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <script>
+            </script>
+
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                <tr>
+                    <th class="text-center" scope="col" th:text="${sport.sportName}+ ' Sport Facilities'"></th>
+                <tr>
+                </thead>
+                <tbody>
+                <tr class="text-center" th:each="sportFacility : ${sport.sportFacilities}">
+                    <td><a th:text="${sportFacility.sportFacilityName}" th:href="@{'/sportFacilities/selected/'+ ${sportFacility.sportFacilityId}}" class="stretched-link text-decoration-none text-dark"></a></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+        <script th:replace="layouts :: jScriptFragment"></script>
+        <footer th:replace="layouts :: footer"></footer>
+    </div>
+</div>
+</body>
+
+</html>

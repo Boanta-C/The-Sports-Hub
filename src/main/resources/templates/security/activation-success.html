@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="layouts :: header"></head>
+<body>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <div class="card-body">
+                <div class="box-footer text-center">
+                    <meta http-equiv="refresh" content="5;url=http://localhost:8080/login" />
+                    <div class="alert alert-success" role="alert">
+                        <p class="font-weight-bold">Your account was activated.</p> You will be redirected in 5 seconds.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:replace="layouts :: jScriptFragment"></script>
+</body>
+</html>

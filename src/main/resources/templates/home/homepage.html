@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:replace="layouts :: header">
+</head>
+
+<body>
+<nav th:replace="layouts :: navbar"></nav>
+<div class="col-md-8 offset-md-2">
+    <div class="card my-5 border border-4 border-white bg-secondary">
+        <h3 class="display-3 text-center fst-italic text-light mt-5">Welcome to</h3>
+        <h1 class="display-1 text-center fw-bolder text-light">THE SPORTS HUB</h1>
+        <br>
+        <div class="col-md-11 offset-md-2">
+            <div class="row">
+                <div class="col-sm-3 absolute left-half">
+                    <div class="text-center">
+                        <a th:href="@{/cities}">
+                            <button th:href="@{/cities}" type="button" class="btn btn-outline-light mb-5 w-100">Cities
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-3 absolute center">
+                    <div class="text-center">
+                        <a th:href="@{/neighborhoods}">
+                            <button type="button" class="btn btn-outline-light mb-5 w-100">Neighborhoods</button>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="col-sm-3 absolute right-half">
+                    <div class="text-center">
+                        <a th:href="@{/sportFacilities}">
+                            <button type="button" class="btn btn-outline-light mb-5 w-100">
+                                Sport Facilities
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="text-center">
+                    <a th:href="@{/sports}">
+                        <button type="submit" class="btn btn-outline-light mb-5 w-100">Sports</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 absolute center">
+
+            <div sec:authorize="isAnonymous()" id="emailHelp" class="form-text text-center mb-5 text-white">
+                <a th:href="@{/login}" class="text-white fw-bold"> Log In</a>
+                <div>
+                    Not Registered? <a th:href="@{/register}" class="text-info fw-bold"> Create an Account</a>
+                </div>
+            </div>
+            <div sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR') or hasAuthority('USER')"
+                 id="emailHelpp" class="form-text text-center mb-5 text-white"><a href="#"
+                                                                                  class="text-white fw-bold"> Log
+                Out</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script th:replace="layouts :: jScriptFragment"></script>
+<footer th:replace="layouts :: footer"></footer>
+</body>
+
+</html>
