@@ -18,18 +18,16 @@ public class AppErrorController implements ErrorController {
             int statusCode = Integer.parseInt(status.toString());
 
             if(statusCode == HttpStatus.NOT_FOUND.value()){
-                return "errorpages/error-404";
+                return "/errorpages/error-404";
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                return "errorpages/error-500";
+                return "/errorpages/error-500";
             } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
-                return "errorpages/error-403";
+                return "/errorpages/error-403";
             }
         }
-        return "errorpages/error";
+        return "/errorpages/error";
     }
 
-    public String getErrorPath () {
-        return "/error";
-    }
+
 
 }

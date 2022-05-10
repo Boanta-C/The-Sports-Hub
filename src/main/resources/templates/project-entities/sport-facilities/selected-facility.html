@@ -16,8 +16,8 @@
             <div class="card my-2 border border-4 border-white bg-secondary">
 
                 <h4 class="text-center text-light mt-5" th:text="${sportFacility.sportFacilityName}"></h4>
-                <form class="card-body cardbody-color p-lg-5" th:action="@{/sportFacilities/save}"
-                      th:object="${sportFacility}" method="POST">
+                <form class="card-body cardbody-color p-lg-5" th:action="@{/sportFacilities}"
+                      th:object="${sportFacility}" method="GET">
                     <input type="hidden" th:field="${sportFacility.sportFacilityId}"/>
 
 
@@ -62,11 +62,11 @@
                     </div>
 
                     <br>
-
                     <div class="text-center">
-                        <button type="submit" class="btn btn-outline-light px-5 mb-2 w-100">Next</button>
+                        <button type="submit" class="btn btn-outline-light px-5 mb-2 w-100">Back</button>
                     </div>
                 </form>
+
             </div>
 
         </div>

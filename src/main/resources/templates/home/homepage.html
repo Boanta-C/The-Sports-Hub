@@ -56,7 +56,7 @@
                 </div>
             </div>
             <div sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR') or hasAuthority('USER')"
-                 id="emailHelpp" class="form-text text-center mb-5 text-white"><a href="#"
+                 id="emailHelpp" class="form-text text-center mb-5 text-white"><a th:href="@{/logout}"
                                                                                   class="text-white fw-bold"> Log
                 Out</a>
             </div>

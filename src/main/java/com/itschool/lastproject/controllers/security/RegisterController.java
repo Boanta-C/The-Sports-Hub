@@ -27,7 +27,7 @@ public class RegisterController {
     public String registerUser (@ModelAttribute("userAccount") @RequestBody UserAccount userAccount) {
         if(userAccount.getPassword().equalsIgnoreCase(userAccount.getPasswordConfirm())) {
             userAccountService.saveUser(userAccount);
-            return "redirect:/cities";
+            return "redirect:/home";
         } else {
             return "security/register";
         }
