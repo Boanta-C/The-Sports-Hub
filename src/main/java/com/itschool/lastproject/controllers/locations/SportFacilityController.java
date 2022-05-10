@@ -83,4 +83,11 @@ public class SportFacilityController {
         return "/project-entities/sport-facilities/edit-facility";
     }
 
+    @GetMapping("/selected/{id}")
+    public String displaySport(Model model, @PathVariable Long id) {
+        SportFacility sportFacility = sportFacilityService.findById(id);
+        model.addAttribute("sportFacility", sportFacility);
+        return "project-entities/sport-facilities/selected-facility";
+    }
+
 }

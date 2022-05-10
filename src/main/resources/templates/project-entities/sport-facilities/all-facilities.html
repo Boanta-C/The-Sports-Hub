@@ -32,9 +32,11 @@
                 <tbody>
                 <tr th:each="sportFacility : ${sportFacilities}">
 
-                    <td th:text="${sportFacility.sportFacilityName}"></td>
+                    <td>
+                        <a th:text="${sportFacility.sportFacilityName}" th:href="@{'/sportFacilities/selected/'+ ${sportFacility.sportFacilityId}}"
+                           class="stretched-link text-decoration-none text-dark"></a>
+                    </td>
                     <td colspan="2" th:text="${sportFacility.address}"></td>
-
                     <div sec:authorize="hasAuthority('OWNER') or hasAuthority('MODERATOR')">
                         <td>
                             <div class="dropdown">
